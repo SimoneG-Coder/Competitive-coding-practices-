@@ -1,34 +1,33 @@
-//In a string containing consecutive elements give the max sums of even lengths of consecutive letters
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String s = sc.nextLine();
-
-        int maxSum = 0;
-        int currentSum = 0;
+        
+        if (!sc.hasNextLine()) {
+            System.out.println(0);
+            return;
+        }
+        
+        // Appending a space forces the last character group to trigger the 'else' block
+        String s = sc.nextLine() + " "; 
+        
+        int totalSum = 0;
         int count = 1;
 
+        // Start from 1 because a single character is a run of length 1
         for (int i = 1; i < s.length(); i++) {
             if (s.charAt(i) == s.charAt(i - 1)) {
-                count++;
+                count++; // Streak continues
             } else {
-                // check the run we just finished
+                // Streak ended! Check if the group length we just finished is even
                 if (count % 2 == 0) {
-                    currentSum += count;
+                    totalSum += count;
                 }
-                count = 1; // reset for new run
+                count = 1; // Reset count to 1 for the new character streak
             }
         }
 
-        // handle last run
-        if (count % 2 == 0) {
-            currentSum += count;
-        }
-
-        maxSum = Math.max(maxSum, currentSum);
-
-        System.out.println(maxSum);
+        System.out.println(totalSum);
     }
 }
