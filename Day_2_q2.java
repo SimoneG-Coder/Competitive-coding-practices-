@@ -6,7 +6,6 @@ public class Main {
         String s = sc.nextLine();
 
         int totalEvenSum = 0;
-        int runningSum = 0;
         int count = 1;
 
         for (int i = 1; i < s.length(); i++) {
@@ -15,7 +14,7 @@ public class Main {
             } else {
                 // check the run we just finished
                 if (count % 2 == 0) {
-                    runningSum += count;
+                    totalEvenSum += count;
                 }
                 count = 1; // reset for new run
             }
@@ -23,10 +22,8 @@ public class Main {
 
         // handle last run
         if (count % 2 == 0) {
-            runningSum += count;
+            totalEvenSum += count;
         }
-
-        totalEvenSum = Math.max(totalEvenSum, runningSum);
 
         System.out.println(totalEvenSum);
     }
