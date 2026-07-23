@@ -1,3 +1,4 @@
+//simple sieve
 import java.util.Scanner;
 import java.util.Arrays;
 
