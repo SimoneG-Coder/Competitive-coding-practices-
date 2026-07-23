@@ -10,6 +10,7 @@ public class RockPaperScissors {
             return "invalid move"; // handle wrong input
         }
     }
+    // == comparison operator for strings in java compares memory address and not values inside the string in java
 
     public static void main(String[] args) {
         // Example usage
