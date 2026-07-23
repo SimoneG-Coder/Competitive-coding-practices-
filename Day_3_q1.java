@@ -1,4 +1,5 @@
 //simple sieve
+//incremental or segmented sieve exist too
 import java.util.Scanner;
 import java.util.Arrays;
 
