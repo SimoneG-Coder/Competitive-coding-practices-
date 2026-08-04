@@ -1,21 +1,27 @@
-public class NibbleSwapper {
+import java.util.Scanner;
 
-    /**
-     * Swaps the high and low nibbles of an 8-bit byte.
-     */
-    public static int swapNibbles(int b) {
-        // Keep only the lower 8 bits in case an integer with more bits was passed
-        b = b & 0xFF;
+public class SwapNibbles {
+    public static int swapNibbles(int x) {
+        // Extract lower nibble (last 4 bits) and upper nibble (first 4 bits)
+        int lower = x & 0x0F;   // mask 00001111
+        int upper = x & 0xF0;   // mask 11110000
 
-        // Extract lower 4 bits and shift left by 4, extract upper 4 bits and shift right by 4
-        return ((b & 0x0F) << 4) | ((b & 0xF0) >> 4);
+        // Swap: shift lower to upper position, upper to lower
+        return (lower << 4) | (upper >> 4);
     }
 
     public static void main(String[] args) {
-        int input = 0xAB; // Binary: 1010 1011
-        int result = swapNibbles(input);
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a decimal number (0-255): ");
+        int n = sc.nextInt();
 
-        System.out.printf("Original: 0x%02X (%s)%n", input, String.format("%8s", Integer.toBinaryString(input)).replace(' ', '0'));
-        System.out.printf("Swapped:  0x%02X (%s)%n", result, String.format("%8s", Integer.toBinaryString(result)).replace(' ', '0'));
+        if (n < 0 || n > 255) {
+            System.out.println("Please enter a number between 0 and 255.");
+            return;
+        }
+
+        int result = swapNibbles(n);
+        System.out.println("After swapping nibbles, decimal output = " + result);
     }
 }
+
