@@ -1,4 +1,5 @@
 //Lexicographically first palindromic string
+//leetcode smallest palindromic arrangement
 import java.util.*;
 
 public class LexicographicPalindromeCheck {
