@@ -1,51 +1,35 @@
 //Lexicographically first palindromic string
 import java.util.*;
 
-public class LexicographicallyFirstPalindrome {
-    public static String lexicographicallyFirstPalindrome(String s) {
-        int[] freq = new int[26];
-        for (char c : s.toCharArray()) {
-            freq[c - 'a']++;
+public class LexicographicPalindrome {
+    
+    // Check if string is palindrome
+    public static boolean isPalindrome(String s) {
+        int i = 0, j = s.length() - 1;
+        while (i < j) {
+            if (s.charAt(i) != s.charAt(j)) return false;
+            i++;
+            j--;
         }
+        return true;
+    }
 
-        // Count how many characters have odd frequency
-        int oddCount = 0;
-        int oddCharIndex = -1;
-        for (int i = 0; i < 26; i++) {
-            if (freq[i] % 2 != 0) {
-                oddCount++;
-                oddCharIndex = i;
-            }
-        }
-
-        // Palindrome possible only if at most one odd frequency
-        if (oddCount > 1) {
-            return "NO PALINDROME";
-        }
-
-        // Build first half (sorted lexicographically)
-        StringBuilder half = new StringBuilder();
-        for (int i = 0; i < 26; i++) {
-            for (int j = 0; j < freq[i] / 2; j++) {
-                half.append((char) (i + 'a'));
-            }
-        }
-
-        // Middle character (if odd frequency exists)
-        String middle = "";
-        if (oddCharIndex != -1) {
-            middle = String.valueOf((char) (oddCharIndex + 'a'));
-        }
-
-        // Construct palindrome
-        String firstHalf = half.toString();
-        String secondHalf = half.reverse().toString();
-        return firstHalf + middle + secondHalf;
+    // Rearrange palindrome into lexicographic order
+    public static String arrangeLexicographically(String s) {
+        char[] arr = s.toCharArray();
+        Arrays.sort(arr); // sort characters alphabetically
+        return new String(arr);
     }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
-        System.out.println(lexicographicallyFirstPalindrome(input));
+
+        if (isPalindrome(input)) {
+            System.out.println("Lexicographically arranged palindrome: " 
+                               + arrangeLexicographically(input));
+        } else {
+            System.out.println("Not a palindrome!");
+        }
     }
 }
