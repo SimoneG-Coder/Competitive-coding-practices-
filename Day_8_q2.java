@@ -66,3 +66,60 @@ public class LexicographicPalindromeCheck {
         }
     }
 }
+
+//if input not a palindrome, random string 
+import java.util.*;
+
+public class SmallestPalindromicRearrangementI {
+
+    // Check if string can be rearranged into a palindrome
+    public static boolean canFormPalindrome(String s) {
+        int[] freq = new int[26];
+        for (char c : s.toCharArray()) {
+            freq[c - 'a']++;
+        }
+
+        int oddCount = 0;
+        for (int f : freq) {
+            if (f % 2 != 0) oddCount++;
+        }
+
+        // For even length: no odd counts allowed
+        // For odd length: only one odd count allowed
+        return oddCount <= 1;
+    }
+
+    // Build lexicographically smallest palindrome
+    public static String smallestPalindrome(String s) {
+        int[] freq = new int[26];
+        for (char c : s.toCharArray()) {
+            freq[c - 'a']++;
+        }
+
+        StringBuilder firstHalf = new StringBuilder();
+        String middle = "";
+
+        for (int i = 0; i < 26; i++) {
+            if (freq[i] % 2 != 0) {
+                middle = String.valueOf((char)(i + 'a'));
+            }
+            for (int j = 0; j < freq[i] / 2; j++) {
+                firstHalf.append((char)(i + 'a'));
+            }
+        }
+
+        String secondHalf = new StringBuilder(firstHalf).reverse().toString();
+        return firstHalf.toString() + middle + secondHalf;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.nextLine();
+
+        if (!canFormPalindrome(s)) {
+            System.out.println("Cannot be rearranged into a palindrome.");
+        } else {
+            System.out.println(smallestPalindrome(s));
+        }
+    }
+}
