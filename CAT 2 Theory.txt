@@ -1,0 +1,3 @@
+# Data Structures, Primitive and Non-Primitive Data Types (Do the chart of linear(static and dynamic) and non linear(hierarchical and unordered))
+# Criteria for palindrome, ascii, dynamic strings, lexicographic order
+# String builder and buffer along with method, difference between them and thread safety
