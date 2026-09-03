@@ -15,23 +15,28 @@ public class WeightedUniqueSubstrings {
         int n = s.length();
         HashSet<String> uniqueSubs = new HashSet<>();
 
-        // Enumerate all substrings
-        for (int i = 0; i < n; i++) {
-            int total = 0;
-            for (int j = i; j < n; j++) {
-                total += weights[s.charAt(j) - 'a'];
-                if (total <= k) {
-                    String sub = s.substring(i, j + 1);
+        int left = 0;
+        int total = 0;
 
-                    // normalize to lexicographic order
-                    char[] chars = sub.toCharArray();
-                    Arrays.sort(chars);
-                    String normalized = new String(chars);
+        for (int right = 0; right < n; right++) {
+            total += weights[s.charAt(right) - 'a'];
 
-                    uniqueSubs.add(normalized);
-                } else {
-                    break; // stop if weight exceeds k
-                }
+            // shrink window until weight ≤ k
+            while (total > k && left <= right) {
+                total -= weights[s.charAt(left) - 'a'];
+                left++;
+            }
+
+            // all substrings ending at right and starting from left..right are valid
+            for (int i = left; i <= right; i++) {
+                String sub = s.substring(i, right + 1);
+
+                // normalize to lexicographic order so "ab" and "ba" collapse
+                char[] chars = sub.toCharArray();
+                Arrays.sort(chars);
+                String normalized = new String(chars);
+
+                uniqueSubs.add(normalized);
             }
         }
 
@@ -41,8 +46,7 @@ public class WeightedUniqueSubstrings {
     public static void main(String[] args) {
         String s = "abc";
         int k = 5;
-        String weightString = "12345678901234567890123456"; 
-        // 'a'=1, 'b'=2, 'c'=3, ...
+        String weightString = "12345678901234567890123456"; // 'a'=1, 'b'=2, 'c'=3, ...
 
         Set<String> result = weightedUniqueSubstrings(s, k, weightString);
 
